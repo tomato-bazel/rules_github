@@ -20,8 +20,7 @@ mdbook's Rust-target `aarch64-apple-darwin`, bun's
 """
 
 def detect_platform(rctx):
-    """Return the canonical platform identifier for the host that's
-    fetching this repository.
+    """Return the canonical platform identifier for the repository fetch host.
 
     Args:
       rctx: a `repository_ctx`.
