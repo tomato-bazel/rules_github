@@ -64,8 +64,8 @@ Fetch a per-platform binary release asset from a GitHub release.
 <pre>
 load("@rules_github//github:repositories.bzl", "github_source_repository")
 
-github_source_repository(<a href="#github_source_repository-name">name</a>, <a href="#github_source_repository-allow_unverified">allow_unverified</a>, <a href="#github_source_repository-build_file">build_file</a>, <a href="#github_source_repository-build_file_content">build_file_content</a>, <a href="#github_source_repository-repo">repo</a>, <a href="#github_source_repository-sha256">sha256</a>,
-                         <a href="#github_source_repository-strip_prefix_template">strip_prefix_template</a>, <a href="#github_source_repository-tag_format">tag_format</a>, <a href="#github_source_repository-version">version</a>)
+github_source_repository(<a href="#github_source_repository-name">name</a>, <a href="#github_source_repository-allow_unverified">allow_unverified</a>, <a href="#github_source_repository-build_file">build_file</a>, <a href="#github_source_repository-build_file_content">build_file_content</a>, <a href="#github_source_repository-commit">commit</a>, <a href="#github_source_repository-repo">repo</a>,
+                         <a href="#github_source_repository-sha256">sha256</a>, <a href="#github_source_repository-strip_prefix_template">strip_prefix_template</a>, <a href="#github_source_repository-tag_format">tag_format</a>, <a href="#github_source_repository-version">version</a>)
 </pre>
 
 Fetch a source tarball from a GitHub release tag.
@@ -79,10 +79,11 @@ Fetch a source tarball from a GitHub release tag.
 | <a id="github_source_repository-allow_unverified"></a>allow_unverified |  Skip sha256 requirement; downgrade missing sha to warning.   | Boolean | optional |  `False`  |
 | <a id="github_source_repository-build_file"></a>build_file |  BUILD.bazel content as a label.   | <a href="https://bazel.build/concepts/labels">Label</a> | optional |  `None`  |
 | <a id="github_source_repository-build_file_content"></a>build_file_content |  Inline BUILD.bazel content. Either this OR `build_file` must be set.   | String | optional |  `""`  |
+| <a id="github_source_repository-commit"></a>commit |  Full commit SHA for an untagged ref. Fetches `archive/<commit>.tar.gz`. Use for repos without release tags. Mutually exclusive with `version`.   | String | optional |  `""`  |
 | <a id="github_source_repository-repo"></a>repo |  GitHub repo as `owner/name`.   | String | required |  |
 | <a id="github_source_repository-sha256"></a>sha256 |  sha256 of the auto-generated source tarball. Required unless `allow_unverified = True`.   | String | optional |  `""`  |
-| <a id="github_source_repository-strip_prefix_template"></a>strip_prefix_template |  Override strip-prefix pattern. Default: `<repo-basename>-{version}` (matches GitHub's auto-tarball convention).   | String | optional |  `""`  |
-| <a id="github_source_repository-tag_format"></a>tag_format |  Release tag pattern. Same semantics as `github_binary_repository`.   | String | optional |  `"v{version}"`  |
-| <a id="github_source_repository-version"></a>version |  Upstream version string.   | String | required |  |
+| <a id="github_source_repository-strip_prefix_template"></a>strip_prefix_template |  Override strip-prefix pattern (`{version}` / `{commit}` substituted). Default: `<repo-basename>-{version}` for tag mode, `<repo-basename>-{commit}` for commit mode.   | String | optional |  `""`  |
+| <a id="github_source_repository-tag_format"></a>tag_format |  Release tag pattern (tag mode only). Same semantics as `github_binary_repository`.   | String | optional |  `"v{version}"`  |
+| <a id="github_source_repository-version"></a>version |  Release-tag version string. Mutually exclusive with `commit`; exactly one is required.   | String | optional |  `""`  |
 
 
